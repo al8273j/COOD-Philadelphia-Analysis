@@ -1,1 +1,2 @@
 PhillyData-files filter=lfs diff=lfs merge=lfs -text
+PhillyData-files/* filter=lfs diff=lfs merge=lfs -text

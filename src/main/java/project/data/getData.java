@@ -21,13 +21,13 @@ public class getData {
         return parkingViolationsFormat;
     }
 
-    public JSONArray getParkingViolationsJSON() {
-        //
-    }
+    /*public JSONArray getParkingViolationsJSON() {
 
-    public JSONArray getPropertyValuesCSV() {
-        //
-    }
+    }*/
+
+
+
+
 
 
 

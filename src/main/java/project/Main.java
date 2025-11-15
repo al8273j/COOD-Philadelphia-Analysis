@@ -1,6 +1,7 @@
 package project;
 
 import project.data.getData;
+import project.processor.processData;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,13 +22,13 @@ public class Main {
         //Data Tier
         getData data = new getData(parkingViolationsFormat, parkingViolationsFile, propertyValuesFile, populationFile);
 
-        /*
-        * Processor Tier
-        * processData processor = new processData(data);
-        *
-        * UI Tier
-        * userInterface ui = new userInterface(processor);
-        * */
+
+        //Processor Tier
+        processData processor = new processData(data);
+
+        //UI Tier
+        presentData ui = new presentData(processor);
+
 
 
 

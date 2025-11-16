@@ -1,3 +1,15 @@
+/*
+ * This class gets information from each entry in the parking.JSON file, providing getter methods to
+ * retrieve the following information:
+ * ticket number
+ * plate id
+ * date
+ * zipcode
+ * violation
+ * fine
+ * state
+ * */
+
 package project.common;
 
 import org.json.simple.JSONObject;

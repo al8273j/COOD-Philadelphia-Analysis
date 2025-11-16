@@ -1,3 +1,10 @@
+/*
+ * This class gets information from each entry in the parking.JSON file, providing getter methods to
+ * retrieve the following information:
+ * zipcode
+ * population
+ * */
+
 package project.common;
 
 public class populationDataEntry {

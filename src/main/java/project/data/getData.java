@@ -1,3 +1,9 @@
+/*
+* This class stores the data from each inputted file into their necessary objects.
+* Information from the JSON file (parking.json) can be retrieved as a JSONArray
+* Information from the txt file (population.txt) can be retrieved as a ArrayList of String arrays (ArrayList<String[]>)
+* */
+
 package project.data;
 
 import org.json.simple.*;

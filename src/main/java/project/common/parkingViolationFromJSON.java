@@ -14,7 +14,7 @@ package project.common;
 
 import org.json.simple.JSONObject;
 
-public class parkingViolationFromJSON {
+public class parkingViolationFromJSON extends parkingViolationDataEntry {
 
 
     private JSONObject parkingViolation;
@@ -42,8 +42,8 @@ public class parkingViolationFromJSON {
         return (String)parkingViolation.get("violation");
     }
 
-    public long getFine(){
-        return (long)parkingViolation.get("fine");
+    public Double getFine(){
+        return Double.parseDouble((String) parkingViolation.get("fine"));
     }
 
     public String getState(){

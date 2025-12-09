@@ -3,6 +3,7 @@ package project.presentation;
 import project.common.ScannerSingleton;
 import project.processor.processData;
 
+import java.awt.*;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
@@ -21,13 +22,16 @@ public class presentData {
             System.out.println("Select a menu item: 1,2,3,4,5,6,7\n");
             int selectedMenu = scanner.nextInt();
             if(selectedMenu == 1){
-                processor.menuOne();
+                System.out.println(processor.menuOne());
             }
             else if(selectedMenu == 2){
-                processor.menuTwo();
+                processor.menuTwo().forEach((key, value) -> System.out.println(key + " " + value));
             }
             else if(selectedMenu == 3){
-                processor.menuThree();
+                System.out.println("Enter a zipcode:\n");
+                String zipcode = scanner.nextLine();
+                System.out.println(processor.menuThree(zipcode));
+
             }
             /*
             else if(selectedMenu == 4){processor.menuFour();}

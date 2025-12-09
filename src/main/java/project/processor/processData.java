@@ -39,17 +39,17 @@ public class processData {
 
     }
 
-    public void menuOne(){
+    public int menuOne(){
         /*
         * Menu One:
         * The total population for all of the ZIP Codes in the population input file
         * uses streams
          * */
         int val= population.stream().map((p)->p.getPopulationNumber()).reduce(0, (x, y) -> x+y);
-        System.out.println(val);
+        return val;
     }
 
-    public void menuTwo() throws ExecutionException, InterruptedException {
+    public HashMap<String, String> menuTwo() throws ExecutionException, InterruptedException {
 
         /*
         * Menu Two:
@@ -57,6 +57,7 @@ public class processData {
         * Runs fine aggregation and population mapping concurrently
         * uses threads
         * */
+        HashMap<String, String> result = new HashMap<>();
         HashMap<String, Integer> populationPerZipCode = new HashMap<>();
         ExecutorService es = Executors.newSingleThreadExecutor();
 
@@ -106,27 +107,29 @@ public class processData {
                 if (pop==0)
                     continue;
 
-                System.out.println(zipCode+" "+ df.format(pop / fineTotal));
+
+                result.put(zipCode, df.format(pop / fineTotal));
             }
         }
         }
         catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+        return result;
 
     }
 
-    public void menuThree(){
+    public int menuThree(String zipCode){
         /*
         * Menu Three:
         * Displays average residential market value for inputted ZIP Code
         * uses memoization
         * */
 
-        System.out.println("Enter a zipCode: ");
-        String input = scanner.nextLine();
+
+        String input = zipCode;
         if (menuThreeMemo.containsKey(input)) {
-            System.out.println(menuThreeMemo.get(input));
+            return menuThreeMemo.get(input);
 
         }
         else{
@@ -152,7 +155,7 @@ public class processData {
                 result = (int) totalMarketValue/matchingZipCodes;
             }
             menuThreeMemo.put(input, result);
-            System.out.println("The market value is "+result);
+            return result;
         }
 
         //public void menuFour(){}

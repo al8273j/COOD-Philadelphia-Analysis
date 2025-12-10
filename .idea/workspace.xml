@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a78b9e26-4a58-4741-8581-cf5db6a8e69c" name="Changes" comment="committing menu seven to gitHub (CC)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/presentation/presentData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/presentation/presentData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/processor/processData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/processor/processData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

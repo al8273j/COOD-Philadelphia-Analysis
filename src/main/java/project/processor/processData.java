@@ -121,80 +121,140 @@ public class processData {
 
     }
 
-    public int menuThree(String zipCode){
+    public int menuThree(String zipCode) {
         /*
-        * Menu Three:
-        * Displays average residential market value for inputted ZIP Code
-        * uses memoization
-        * */
+         * Menu Three:
+         * Displays average residential market value for inputted ZIP Code
+         * uses memoization
+         * */
 
 
         String input = zipCode;
         if (menuThreeMemo.containsKey(input)) {
             return menuThreeMemo.get(input);
 
-        }
-        else{
+        } else {
             int matchingZipCodes = 0;
             double totalMarketValue = 0;
-            for(propertiesDataEntry  prop: properties){
+            for (propertiesDataEntry prop : properties) {
 
-                if (prop.getZipCode().equals(input)){
+                if (prop.getZipCode().equals(input)) {
                     matchingZipCodes++;
                     Double marketValue = prop.getMarketValue();
 
-                    if (marketValue>0) {
+                    if (marketValue > 0) {
                         totalMarketValue += marketValue;
                     }
 
                 }
             }
             int result;
-            if (matchingZipCodes==0){
+            if (matchingZipCodes == 0) {
                 result = 0;
-            }
-            else{
-                result = (int) totalMarketValue/matchingZipCodes;
+            } else {
+                result = (int) totalMarketValue / matchingZipCodes;
             }
             menuThreeMemo.put(input, result);
             return result;
         }
-
-        //public void menuFour(){}
-      //  public void menuFive(){}
-     //   public void menuSix(){}
-     //   public void menuSeven(){}
-
     }
-    /*
-    Menu Seven returns the min and max liveable areas for homes
-    in a given zipcode. It uses streams and lambdas to store the
-    values in an array.
-     */
-    public int[] menuSeven(String zipcode){
-        if(zipcode==null||zipcode.isEmpty()){
-            System.out.println("Zipcode is null or empty. Please retry");
-            return new int[] {0,0};
+    public int menuFour(String zipcode) {
+        /*
+         * Menu Four:
+         * Displays average total livable area for inputted ZIP Code
+         * */
+
+        String input = zipcode;
+        int count = 0;
+        double totalArea = 0;
+
+        for (propertiesDataEntry pde : properties) {
+            if (pde.getZipCode().startsWith(input)) {
+                Double area = pde.getTotalLivableArea();
+                if (area != null && area > 0) {
+                    totalArea += area;
+                    count++;
+                }
+            }
         }
-        final int[] minAndMax = {Integer.MAX_VALUE, Integer.MIN_VALUE};
-        properties.stream()
-                .filter(p->p.getZipCode()!=null && p.getZipCode().equals(zipcode))
-                .forEach(p->{
-                    Double area = p.getTotalLivableArea();
-                    if(area==null||area<=0) return;
-                    int value = area.intValue();
-                    if(value<minAndMax[0]) minAndMax[0] = value;
-                    if(value>minAndMax[1]) minAndMax[1] = value;
-                });
-        if(minAndMax[0]==Integer.MAX_VALUE){
-            return new int[] {0,0};
+
+        if (count == 0) {
+            return 0;
         }
-        return minAndMax;
-
-
-
+        else {
+            return (int) Math.round(totalArea / count);
+        }
     }
 
+    public int menuFive(String zipcode){
+        /*
+         * Menu Five:
+         * The total market value divided by the population of that ZIP Code
+         * */
 
 
+        String input = zipcode;
+        double totalMarketVal = 0;
+        boolean hasValidResidences = false;
+
+        for (propertiesDataEntry pde : properties) {
+            if (pde.getZipCode().startsWith(input)) {
+                Double val = pde.getMarketValue();
+                if (val != null && val > 0) {
+                    totalMarketVal += val;
+                    hasValidResidences = true;
+                }
+            }
+        }
+
+        int pop = 0;
+        for (populationDataEntry pde : population) {
+            if (pde.getZipCode().startsWith(input)) {
+                pop = pde.getPopulationNumber();
+                break;
+            }
+        }
+
+        if (!hasValidResidences || pop == 0) {
+            return 0;
+        }
+        else {
+            return (int) Math.round(totalMarketVal / pop);
+        }
+    }
+     public int menuSix(String zipcode, int min, int max){
+         /*
+          * Menu Six:
+          * Counts number of homes within a specific market value range
+          */
+
+         String input = zipcode;
+         int count = 0;
+
+         for (propertiesDataEntry pde : properties) {
+             if (pde.getZipCode().startsWith(input)) {
+                 Double val = pde.getMarketValue();
+
+                 if (val != null && val >= min && val <= max) {
+                     count++;
+                 }
+             }
+         }
+         return count;
+     }
+     public int menuSeven(String zipcode, double min, double max){
+        if(zipcode==null || zipcode.isEmpty() || min<=0 || max<=0){
+            return 0;
+        }
+        if(min>max){
+            System.out.println("Please re-enter. Min>Max is not possible.");
+            return 0;
+        }
+        return (int) properties.stream()
+                .filter(p->zipcode.equals(p.getZipCode()))
+                .map(p->p.getMarketValue())
+                .filter(m->m!=null && m>0)
+                .filter(m->m>=min&&m<=max)
+                .count();
+    }
 }

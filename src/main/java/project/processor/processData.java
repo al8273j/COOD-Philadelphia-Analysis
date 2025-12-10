@@ -2,7 +2,10 @@ package project.processor;
 
 
 import org.json.simple.parser.ParseException;
-import project.common.*;
+import project.common.ScannerSingleton;
+import project.common.parkingViolationDataEntry;
+import project.common.populationDataEntry;
+import project.common.propertiesDataEntry;
 import project.data.getData;
 
 import java.io.IOException;
@@ -13,7 +16,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.zip.ZipEntry;
 
 public class processData {
 
@@ -163,6 +165,26 @@ public class processData {
      //   public void menuSix(){}
      //   public void menuSeven(){}
 
+    }
+    /*
+    Menu Seven returns number of houses in a given zipcode between
+    a minimum and maximum value entered by the user. Uses streams
+    and lambdas
+     */
+    public int menuSeven(String zipcode, double min, double max){
+        if(zipcode==null || zipcode.isEmpty() || min<=0 || max<=0){
+            return 0;
+        }
+        if(min>max){
+            System.out.println("Please re-enter. Min>Max is not possible.");
+            return 0;
+        }
+        return (int) properties.stream()
+                .filter(p->zipcode.equals(p.getZipCode()))
+                .map(p->p.getMarketValue())
+                .filter(m->m!=null && m>0)
+                .filter(m->m>=min&&m<=max)
+                .count();
     }
 
 

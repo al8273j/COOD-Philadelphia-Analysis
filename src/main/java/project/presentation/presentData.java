@@ -3,7 +3,6 @@ package project.presentation;
 import project.common.ScannerSingleton;
 import project.processor.processData;
 
-import java.awt.*;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
@@ -45,8 +44,17 @@ public class presentData {
             else if(selectedMenu == 4){processor.menuFour();}
             else if(selectedMenu == 5){processor.menuFive();}
             else if(selectedMenu == 6){processor.menuSix();}
-            else if(selectedMenu == 7){processor.menuSeven();}
             */
+            else if(selectedMenu == 7){
+                System.out.println("Please enter a zipcode:\n");
+                String zipcode=scanner.nextLine().trim();
+                System.out.println("Please enter a minimum market value:\n");
+                double min = scanner.nextDouble();
+                System.out.println("Please enter a maximum market value:\n");
+                double max = scanner.nextDouble();
+                System.out.println(processor.menuSeven(zipcode, min, max));
+            }
+
 
         }
 

@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException, ParseException, ExecutionException, InterruptedException {
         //validates number of runtime arguments
         if (args.length != 4) {
-
+           throw new IllegalArgumentException("Usage: <parking-file-type> <parking-filepath> <properties-filepath> <population-filepath>");
         }
         String parkingViolationsFormat = args[0];
         //validates file format input

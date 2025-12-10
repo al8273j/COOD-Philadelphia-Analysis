@@ -40,11 +40,33 @@ public class presentData {
                 }
 
             }
-            /*
-            else if(selectedMenu == 4){processor.menuFour();}
-            else if(selectedMenu == 5){processor.menuFive();}
-            else if(selectedMenu == 6){processor.menuSix();}
-            */
+
+    
+          
+
+            else if(selectedMenu == 4){
+                scanner.nextLine();
+                System.out.println("Enter a zipcode:\n");
+                String zipcode = scanner.nextLine();
+                System.out.println(processor.menuFour(zipcode));
+            }
+            else if(selectedMenu == 5){
+                scanner.nextLine();
+                System.out.println("Enter a zipcode:\n");
+                String zipcode = scanner.nextLine();
+                System.out.println(processor.menuFive(zipcode));
+            }
+            else if(selectedMenu == 6){
+                scanner.nextLine();
+                System.out.println("Enter a zipcode:\n");
+                String zipcode = scanner.nextLine();
+                System.out.println("Enter minimum market value:");
+                int min = Integer.parseInt(scanner.nextLine());
+                System.out.println("Enter maximum market value:");
+                int max = Integer.parseInt(scanner.nextLine());
+                System.out.println(processor.menuSix(zipcode, min, max));
+            }
+          
             else if(selectedMenu == 7){
                 System.out.println("Please enter a zipcode:\n");
                 String zipcode=scanner.nextLine().trim();
@@ -54,9 +76,6 @@ public class presentData {
                 double max = scanner.nextDouble();
                 System.out.println(processor.menuSeven(zipcode, min, max));
             }
-
-
         }
-
     }
 }

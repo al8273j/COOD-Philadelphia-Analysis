@@ -13,7 +13,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.zip.ZipEntry;
 
 public class processData {
 
@@ -119,52 +118,124 @@ public class processData {
 
     }
 
-    public int menuThree(String zipCode){
+    public int menuThree(String zipCode) {
         /*
-        * Menu Three:
-        * Displays average residential market value for inputted ZIP Code
-        * uses memoization
-        * */
+         * Menu Three:
+         * Displays average residential market value for inputted ZIP Code
+         * uses memoization
+         * */
 
 
         String input = zipCode;
         if (menuThreeMemo.containsKey(input)) {
             return menuThreeMemo.get(input);
 
-        }
-        else{
+        } else {
             int matchingZipCodes = 0;
             double totalMarketValue = 0;
-            for(propertiesDataEntry  prop: properties){
+            for (propertiesDataEntry prop : properties) {
 
-                if (prop.getZipCode().equals(input)){
+                if (prop.getZipCode().equals(input)) {
                     matchingZipCodes++;
                     Double marketValue = prop.getMarketValue();
 
-                    if (marketValue>0) {
+                    if (marketValue > 0) {
                         totalMarketValue += marketValue;
                     }
 
                 }
             }
             int result;
-            if (matchingZipCodes==0){
+            if (matchingZipCodes == 0) {
                 result = 0;
-            }
-            else{
-                result = (int) totalMarketValue/matchingZipCodes;
+            } else {
+                result = (int) totalMarketValue / matchingZipCodes;
             }
             menuThreeMemo.put(input, result);
             return result;
         }
-
-        //public void menuFour(){}
-      //  public void menuFive(){}
-     //   public void menuSix(){}
-     //   public void menuSeven(){}
-
     }
+    public int menuFour(String zipcode) {
+        /*
+         * Menu Four:
+         * Displays average total livable area for inputted ZIP Code
+         * */
 
+        String input = zipcode;
+        int count = 0;
+        double totalArea = 0;
 
+        for (propertiesDataEntry pde : properties) {
+            if (pde.getZipCode().startsWith(input)) {
+                Double area = pde.getTotalLivableArea();
+                if (area != null && area > 0) {
+                    totalArea += area;
+                    count++;
+                }
+            }
+        }
 
+        if (count == 0) {
+            return 0;
+        }
+        else {
+            return (int) Math.round(totalArea / count);
+        }
+    }
+    public int menuFive(String zipcode){
+        /*
+         * Menu Five:
+         * The total market value divided by the population of that ZIP Code
+         * */
+
+        String input = zipcode;
+        double totalMarketVal = 0;
+        boolean hasValidResidences = false;
+
+        for (propertiesDataEntry pde : properties) {
+            if (pde.getZipCode().startsWith(input)) {
+                Double val = pde.getMarketValue();
+                if (val != null && val > 0) {
+                    totalMarketVal += val;
+                    hasValidResidences = true;
+                }
+            }
+        }
+
+        int pop = 0;
+        for (populationDataEntry pde : population) {
+            if (pde.getZipCode().startsWith(input)) {
+                pop = pde.getPopulationNumber();
+                break;
+            }
+        }
+
+        if (!hasValidResidences || pop == 0) {
+            return 0;
+        }
+        else {
+            return (int) Math.round(totalMarketVal / pop);
+        }
+    }
+     public int menuSix(String zipcode, int min, int max){
+         /*
+          * Menu Six:
+          * Counts number of homes within a specific market value range
+          */
+
+         String input = zipcode;
+         int count = 0;
+
+         for (propertiesDataEntry pde : properties) {
+             if (pde.getZipCode().startsWith(input)) {
+                 Double val = pde.getMarketValue();
+
+                 if (val != null && val >= min && val <= max) {
+                     count++;
+                 }
+             }
+         }
+         return count;
+     }
+     //   public void menuSeven(){}
 }

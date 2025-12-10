@@ -21,6 +21,7 @@ public class presentData {
         while(true){
             System.out.println("Select a menu item: 1,2,3,4,5,6,7\n");
             int selectedMenu = scanner.nextInt();
+            scanner.nextLine();
             if(selectedMenu == 1){
                 System.out.println(processor.menuOne());
             }
@@ -30,7 +31,14 @@ public class presentData {
             else if(selectedMenu == 3){
                 System.out.println("Enter a zipcode:\n");
                 String zipcode = scanner.nextLine();
-                System.out.println(processor.menuThree(zipcode));
+                try {
+                    Double.parseDouble(zipcode);
+                    System.out.println(processor.menuThree(zipcode));
+                }
+                catch (Exception e) {
+                    System.out.println("Invalid zipcode\n");
+                    continue;
+                }
 
             }
 

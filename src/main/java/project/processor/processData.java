@@ -167,24 +167,32 @@ public class processData {
 
     }
     /*
-    Menu Seven returns number of houses in a given zipcode between
-    a minimum and maximum value entered by the user. Uses streams
-    and lambdas
+    Menu Seven returns the min and max liveable areas for homes
+    in a given zipcode. It uses streams and lambdas to store the
+    values in an array.
      */
-    public int menuSeven(String zipcode, double min, double max){
-        if(zipcode==null || zipcode.isEmpty() || min<=0 || max<=0){
-            return 0;
+    public int[] menuSeven(String zipcode){
+        if(zipcode==null||zipcode.isEmpty()){
+            System.out.println("Zipcode is null or empty. Please retry");
+            return new int[] {0,0};
         }
-        if(min>max){
-            System.out.println("Please re-enter. Min>Max is not possible.");
-            return 0;
+        final int[] minAndMax = {Integer.MAX_VALUE, Integer.MIN_VALUE};
+        properties.stream()
+                .filter(p->p.getZipCode()!=null && p.getZipCode().equals(zipcode))
+                .forEach(p->{
+                    Double area = p.getTotalLivableArea();
+                    if(area==null||area<=0) return;
+                    int value = area.intValue();
+                    if(value<minAndMax[0]) minAndMax[0] = value;
+                    if(value>minAndMax[1]) minAndMax[1] = value;
+                });
+        if(minAndMax[0]==Integer.MAX_VALUE){
+            return new int[] {0,0};
         }
-        return (int) properties.stream()
-                .filter(p->zipcode.equals(p.getZipCode()))
-                .map(p->p.getMarketValue())
-                .filter(m->m!=null && m>0)
-                .filter(m->m>=min&&m<=max)
-                .count();
+        return minAndMax;
+
+
+
     }
 
 

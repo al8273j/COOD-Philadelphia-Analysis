@@ -2,7 +2,10 @@ package project.processor;
 
 
 import org.json.simple.parser.ParseException;
-import project.common.*;
+import project.common.ScannerSingleton;
+import project.common.parkingViolationDataEntry;
+import project.common.populationDataEntry;
+import project.common.propertiesDataEntry;
 import project.data.getData;
 
 import java.io.IOException;
@@ -182,11 +185,13 @@ public class processData {
             return (int) Math.round(totalArea / count);
         }
     }
+
     public int menuFive(String zipcode){
         /*
          * Menu Five:
          * The total market value divided by the population of that ZIP Code
          * */
+
 
         String input = zipcode;
         double totalMarketVal = 0;
@@ -237,5 +242,19 @@ public class processData {
          }
          return count;
      }
-     //   public void menuSeven(){}
+     public int menuSeven(String zipcode, double min, double max){
+        if(zipcode==null || zipcode.isEmpty() || min<=0 || max<=0){
+            return 0;
+        }
+        if(min>max){
+            System.out.println("Please re-enter. Min>Max is not possible.");
+            return 0;
+        }
+        return (int) properties.stream()
+                .filter(p->zipcode.equals(p.getZipCode()))
+                .map(p->p.getMarketValue())
+                .filter(m->m!=null && m>0)
+                .filter(m->m>=min&&m<=max)
+                .count();
+    }
 }

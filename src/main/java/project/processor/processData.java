@@ -242,6 +242,7 @@ public class processData {
          }
          return count;
      }
+
     public int[] menuSeven(String zipcode) {
         if (zipcode == null || zipcode.isEmpty()) {
             return new int[]{0, 0};
@@ -260,5 +261,4 @@ public class processData {
             return new int[]{0, 0};
         }
         return minAndMax;
-    }
 }

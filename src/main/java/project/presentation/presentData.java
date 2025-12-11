@@ -45,19 +45,16 @@ public class presentData {
           
 
             else if(selectedMenu == 4){
-                scanner.nextLine();
                 System.out.println("Enter a zipcode:\n");
                 String zipcode = scanner.nextLine();
                 System.out.println(processor.menuFour(zipcode));
             }
             else if(selectedMenu == 5){
-                scanner.nextLine();
                 System.out.println("Enter a zipcode:\n");
                 String zipcode = scanner.nextLine();
                 System.out.println(processor.menuFive(zipcode));
             }
             else if(selectedMenu == 6){
-                scanner.nextLine();
                 System.out.println("Enter a zipcode:\n");
                 String zipcode = scanner.nextLine();
                 System.out.println("Enter minimum market value:");

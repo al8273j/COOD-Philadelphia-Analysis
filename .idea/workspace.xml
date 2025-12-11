@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a78b9e26-4a58-4741-8581-cf5db6a8e69c" name="Changes" comment="committing menu seven to gitHub (CC)">
+      <change afterPath="$PROJECT_DIR$/src/test/java/menuSevenTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/processor/processData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/processor/processData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/menuTwoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/menuTwoTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +87,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765393664977</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="committing menu seven to gitHub (CC)">
+      <option name="closed" value="true" />
+      <created>1765399382589</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1765399382589</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

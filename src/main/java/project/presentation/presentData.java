@@ -70,11 +70,7 @@ public class presentData {
             else if(selectedMenu == 7){
                 System.out.println("Please enter a zipcode:\n");
                 String zipcode=scanner.nextLine().trim();
-                System.out.println("Please enter a minimum market value:\n");
-                double min = scanner.nextDouble();
-                System.out.println("Please enter a maximum market value:\n");
-                double max = scanner.nextDouble();
-                System.out.println(processor.menuSeven(zipcode, min, max));
+                System.out.println(processor.menuSeven(zipcode));
             }
         }
     }

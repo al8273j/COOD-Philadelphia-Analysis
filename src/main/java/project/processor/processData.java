@@ -261,4 +261,5 @@ public class processData {
             return new int[]{0, 0};
         }
         return minAndMax;
+    }
 }

@@ -227,21 +227,20 @@ public class processData {
           * Menu Six:
           * Counts number of homes within a specific market value range
           */
-
-         String input = zipcode;
-         int count = 0;
-
-         for (propertiesDataEntry pde : properties) {
-             if (pde.getZipCode().startsWith(input)) {
-                 Double val = pde.getMarketValue();
-
-                 if (val != null && val >= min && val <= max) {
-                     count++;
-                 }
-             }
+         if(zipcode==null || zipcode.isEmpty() || min<=0 || max<=0){
+             return 0;
          }
-         return count;
-     }
+         if(min>max){
+             System.out.println("Please re-enter. Min>Max is not possible.");
+             return 0;
+         }
+         return (int) properties.stream()
+                 .filter(p->zipcode.equals(p.getZipCode()))
+                 .map(p->p.getMarketValue())
+                 .filter(m->m!=null && m>0)
+                 .filter(m->m>=min&&m<=max)
+                 .count();
+    }
 
     public int[] menuSeven(String zipcode) {
         if (zipcode == null || zipcode.isEmpty()) {

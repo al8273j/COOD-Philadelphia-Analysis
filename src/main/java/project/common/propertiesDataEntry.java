@@ -1,8 +1,9 @@
 package project.common;
 
+import java.util.Iterator;
 import java.util.List;
 
-public class propertiesDataEntry {
+public class propertiesDataEntry{
 
     String[] properties;
     public propertiesDataEntry(String[] properties){
@@ -28,7 +29,9 @@ public class propertiesDataEntry {
     }
 
     public String getZipCode() {
+
         return properties[72];
     }
+
 
 }

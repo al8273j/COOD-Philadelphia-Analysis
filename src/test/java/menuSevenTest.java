@@ -1,5 +1,7 @@
+import org.json.simple.parser.ParseException;
 import org.junit.Test;
 import project.common.propertiesDataEntry;
+import project.data.getData;
 import project.processor.processData;
 
 import java.io.IOException;
@@ -11,7 +13,7 @@ import static org.junit.Assert.assertArrayEquals;
 
 public class menuSevenTest {
    @Test
-   public void testMenuSeven() throws IOException, ExecutionException, InterruptedException{
+   public void testMenuSeven() throws IOException, ExecutionException, InterruptedException, ParseException {
       List<propertiesDataEntry> temp = new ArrayList<>();
       temp.add(new propertiesDataEntry(null){//zipcode null
          @Override
@@ -43,9 +45,15 @@ public class menuSevenTest {
          @Override
          public Double getTotalLivableArea() {return 1000.0;}
       });
-      processData p = new processData(null);
+      getData data = new getData("csv", "PhillyData-files/parking.csv", "PhillyData-files/properties.csv", "PhillyData-files/population.txt"){
+         @Override
+         public List<propertiesDataEntry> getPropertiesArray(){
+            return temp;
+         }
+      };
+      processData p = new processData(data);
       p.properties = temp;
-      assertArrayEquals(new int[]{300,900}, p.menuSeven("94062"));
+      assertArrayEquals(new int[]{500,1000}, p.menuSeven("94062"));
       assertArrayEquals(new int[]{0,0}, p.menuSeven(null));
       assertArrayEquals(new int[]{0,0}, p.menuSeven(""));
       List<propertiesDataEntry> temp2 = new ArrayList<>();
@@ -58,4 +66,114 @@ public class menuSevenTest {
       p.properties = temp2;
       assertArrayEquals(new int[]{0,0}, p.menuSeven("94062"));
    }
+   @Test
+   public void testNullZip() throws Exception{
+      getData data = new getData("csv", "PhillyData-files/parking.csv", "PhillyData-files/properties.csv", "PhillyData-files/population.txt"){
+         @Override
+         public List<propertiesDataEntry> getPropertiesArray(){
+            return new ArrayList<>();
+         }
+      };
+      processData p = new processData(data);
+      assertArrayEquals(new int[]{0,0}, p.menuSeven(null));
+   }
+   @Test
+   public void testEmptyZip() throws Exception {
+      getData data = new getData("csv", "PhillyData-files/parking.csv", "PhillyData-files/properties.csv", "PhillyData-files/population.txt") {
+         @Override
+         public List<propertiesDataEntry> getPropertiesArray() {
+            return new ArrayList<>();
+         }
+      };
+      processData p = new processData(data);
+      assertArrayEquals(new int[]{0,0}, p.menuSeven(null));
+      }
+   @Test
+   public void testZipBadArea() throws Exception {
+      List<propertiesDataEntry> entries = new ArrayList<>();
+      entries.add(new propertiesDataEntry(null){
+         @Override
+         public String getZipCode(){
+            return "94062";
+         }
+         @Override
+         public Double getTotalLivableArea() {
+            return null;
+         }
+      });
+      entries.add(new propertiesDataEntry(null){
+         @Override
+         public String getZipCode(){
+            return "94062";
+         }
+         @Override
+         public Double getTotalLivableArea() {
+            return -100.0;
+         }
+      });
+      getData data = new getData("csv", "PhillyData-files/parking.csv", "PhillyData-files/properties.csv", "PhillyData-files/population.txt") {
+         @Override
+         public List<propertiesDataEntry> getPropertiesArray() {
+            return new ArrayList<>();
+         }
+      };
+      processData p = new processData(data);
+      assertArrayEquals(new int[]{0,0}, p.menuSeven("94062"));
+   }
+   @Test
+   public void testZipNotPresent() throws Exception {
+      List<propertiesDataEntry> entries = new ArrayList<>();
+      entries.add(new propertiesDataEntry(null){
+         @Override
+         public String getZipCode(){
+            return "11111";
+         }
+         @Override
+         public Double getTotalLivableArea() {
+            return 500.0;
+         }
+      });
+      getData data = new getData("csv", "PhillyData-files/parking.csv", "PhillyData-files/properties.csv", "PhillyData-files/population.txt") {
+         @Override
+         public List<propertiesDataEntry> getPropertiesArray() {
+            return new ArrayList<>();
+         }
+      };
+      processData p = new processData(data);
+      assertArrayEquals(new int[]{0,0}, p.menuSeven("94062"));
+   }
+   @Test
+   public void testValidEntries() throws Exception {
+      List<propertiesDataEntry> entries = new ArrayList<>();
+      entries.add(new propertiesDataEntry(null){
+         @Override
+         public String getZipCode(){
+            return "94062";
+         }
+         @Override
+         public Double getTotalLivableArea() {
+            return 500.0;
+         }
+      });
+      entries.add(new propertiesDataEntry(null){
+         @Override
+         public String getZipCode(){
+            return "94062";
+         }
+         @Override
+         public Double getTotalLivableArea() {
+            return 1000.0;
+         }
+      });
+      getData data = new getData("csv", "PhillyData-files/parking.csv", "PhillyData-files/properties.csv", "PhillyData-files/population.txt") {
+         @Override
+         public List<propertiesDataEntry> getPropertiesArray() {
+            return entries;
+         }
+      };
+      processData p = new processData(data);
+      assertArrayEquals(new int[]{500,1000}, p.menuSeven("94062"));
+   }
+
+
 }

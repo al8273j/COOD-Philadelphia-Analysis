@@ -121,7 +121,7 @@ public class processData {
 
     }
 
-    public int menuThree(String zipCode) {
+   public int menuThree(String zipCode) {
         /*
          * Menu Three:
          * Displays average residential market value for inputted ZIP Code
@@ -129,35 +129,28 @@ public class processData {
          * */
 
 
-        String input = zipCode;
-        if (menuThreeMemo.containsKey(input)) {
-            return menuThreeMemo.get(input);
+            if (menuThreeMemo.containsKey(zipCode)) {
+                return menuThreeMemo.get(zipCode);
+            }
 
-        } else {
             int matchingZipCodes = 0;
             double totalMarketValue = 0;
-            for (propertiesDataEntry prop : properties) {
 
-                if (prop.getZipCode().equals(input)) {
+            PropertiesByZipIterator it = new PropertiesByZipIterator(properties, zipCode);
+            while (it.hasNext()) {
+                propertiesDataEntry prop = it.next();
+                Double marketValue = prop.getMarketValue();
+                if (marketValue > 0) {
+                    totalMarketValue += marketValue;
                     matchingZipCodes++;
-                    Double marketValue = prop.getMarketValue();
-
-                    if (marketValue > 0) {
-                        totalMarketValue += marketValue;
-                    }
-
                 }
             }
-            int result;
-            if (matchingZipCodes == 0) {
-                result = 0;
-            } else {
-                result = (int) totalMarketValue / matchingZipCodes;
-            }
-            menuThreeMemo.put(input, result);
+
+            int result = (matchingZipCodes == 0) ? 0 : (int) (totalMarketValue / matchingZipCodes);
+            menuThreeMemo.put(zipCode, result);
             return result;
         }
-    }
+    
     public int menuFour(String zipcode) {
         /*
          * Menu Four:

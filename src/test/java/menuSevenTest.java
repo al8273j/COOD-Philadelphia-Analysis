@@ -1,15 +1,22 @@
 import org.json.simple.parser.ParseException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import project.common.parkingViolationFromCSV;
+import project.common.parkingViolationFromJSON;
+import project.common.populationDataEntry;
 import project.common.propertiesDataEntry;
 import project.data.getData;
 import project.processor.processData;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.Assert.assertArrayEquals;
+import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 
 public class menuSevenTest {
    @Test

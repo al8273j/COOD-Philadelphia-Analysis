@@ -9,6 +9,7 @@ import project.common.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -34,12 +35,8 @@ public class getData {
 
     public List<parkingViolationDataEntry> getParkingViolationsJSONData() throws IOException, ParseException {
 
-        List<parkingViolationDataEntry> parkingViolationEntries = new ArrayList<>();
-        JSONArray parkingViolationsJSON = (JSONArray) new JSONParser().parse(new FileReader(parkingViolationsFile));
-
-        parkingViolationsJSON.forEach((o) -> parkingViolationEntries.add(new parkingViolationFromJSON((JSONObject) o)));
-
-        return parkingViolationEntries;
+        parseParkingViolationJSON parser = new parseParkingViolationJSON();
+        return parser.parseParkingViolationFile(parkingViolationsFile);
     }
 
     public List<populationDataEntry> getPopulationArray() throws IOException {
@@ -54,21 +51,10 @@ public class getData {
         return populationEntries;
     }
 
-    public List<parkingViolationDataEntry> getParkingViolationsCSVData(){
-        List<parkingViolationDataEntry> parkingViolationEntries = new ArrayList<>();
-        try(BufferedReader r = new BufferedReader(new FileReader(parkingViolationsFile))) {
-            String line;
-            while ((line = r.readLine()) != null) {
-                String[] arr = line.split(",");
+    public List<parkingViolationDataEntry> getParkingViolationsCSVData() throws IOException, ParseException {
 
-                parkingViolationEntries.add(new parkingViolationFromCSV(arr));
-            }
-
-
-        } catch(IOException e){
-            System.out.println("IOException");
-        }
-        return parkingViolationEntries;
+        parseParkingViolationCSV parser = new parseParkingViolationCSV();
+        return parser.parseParkingViolationFile(parkingViolationsFile);
 
 
     }
@@ -94,6 +80,7 @@ public class getData {
         }
         return propertiesEntries;
     }
+
 
 
 }

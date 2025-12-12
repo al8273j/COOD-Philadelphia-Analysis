@@ -67,7 +67,7 @@ public class presentData {
             else if(selectedMenu == 7){
                 System.out.println("Please enter a zipcode:\n");
                 String zipcode=scanner.nextLine().trim();
-                System.out.println(processor.menuSeven(zipcode));
+                System.out.println(Arrays.toString(processor.menuSeven(zipcode)));
             }
         }
     }
